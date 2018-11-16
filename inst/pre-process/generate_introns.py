@@ -131,7 +131,7 @@ def main():
     i2t = {}
     for gene, introns in g2i.iteritems():
         trans = g2t[gene]
-        intron_compat = intron_ops.intron_trans_compat(introns, trans)
+        intron_compat = intron_ops.intron_trans_compat(introns, trans,args.extend)
         for intron, tlist in intron_compat.iteritems():
             i2t[intron] = tlist
 

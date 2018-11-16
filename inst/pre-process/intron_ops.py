@@ -177,7 +177,7 @@ def transcript_union(trans_list):
 
     return t
 
-def intron_trans_compat(intron_list, trans_list):
+def intron_trans_compat(intron_list, trans_list,extend=0):
     """ Under the assumption that the intron_list is derived from the
     union gene from the trans_list, returns a dictionary where intron =>
     list of transcript ids that it is compatible with """
@@ -186,8 +186,8 @@ def intron_trans_compat(intron_list, trans_list):
     for intron in intron_list:
         key = str(intron)
         for trans in trans_list:
-            if trans.front_coordinate < intron[0] and \
-                    intron[1] < trans.end_coordinate and \
+            if trans.front_coordinate < (intron[0]+extend) and \
+                (intron[1]-extend) < trans.end_coordinate and \
                     intron.refname == trans.refname:
                 matches = intron_to_trans.get(key, [])
                 matches.append(trans.transcript_id)
